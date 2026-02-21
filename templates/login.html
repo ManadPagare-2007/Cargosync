@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="{{ url_for('static', path='style.css') }}">
+    <script>
+        let role;
+        const greet = (role) => {
+            role = role;
+            if (role === "Manager") {
+                document.getElementById("greet").innerHTML =
+                    "<h2>Hello, Manager...</h2><br>";
+                document.getElementById("usernametype").innerHTML =
+                    "<label>E-mail</label>";
+            } else if (role === "Safety Officer") {
+                document.getElementById("greet").innerHTML =
+                    "<h2>Hello, Safety Officer...</h2><br>";
+                document.getElementById("usernametype").innerHTML =
+                    "<label>E-mail</label>";
+            } else if (role === "Financial Analyst") {
+                document.getElementById("greet").innerHTML =
+                    "<h2>Hello, Financial Analyst...</h2><br>";
+                document.getElementById("usernametype").innerHTML =
+                    "<label>E-mail</label>";
+            } else if (role === "Dispatcher") {
+                document.getElementById("greet").innerHTML =
+                    "<h2>Hello, Dispatcher...</h2><br>";
+                document.getElementById("usernametype").innerHTML =
+                    "<label>E-mail</label>";
+            }
+
+        }
+    </script>
+</head>
+
+<body id="body">
+
+    <section id="loginbox" class="loginbox">
+        <form action="/login" method="post">
+            <div>
+                <h2 style="margin-left:120px;margin-top: 50px;color: rgb(6, 88, 136);font-size:37px ;">CargoSync</h2>
+                <br><br>
+            </div>
+            <label for="role" style="margin-left: 30px;">Role:</label>
+
+            <select id="role" name="role" onchange="greet(this.value)">
+                <option value="Manager">Manager</option>
+                <option value="Dispatcher">Dispatcher</option>
+                <option value="Safety Officer">Safety Officer</option>
+                <option value="Financial Analyst">Financial Analyst</option>
+            </select><br><br>
+
+            <div id="greet" style="color:rgb(6, 88, 136); margin-left: 30px;">
+                <h2>Hello, Manager...</h2><br>
+
+            </div>
+            <div>
+                <label style="margin-left: 30px;font-size: 17px;margin-top: 30px;" id="usernametype">E-mail</label><br>
+                <input type="text" name="username" id="logininputbox">
+            </div>
+            <div style="margin-top: 10px;">
+                <label style="margin-left: 30px;font-size: 17px; margin-top: 10px;">Password</label>
+                <input type="password" name="password" id="logininputbox">
+
+            </div>
+            <button id="loginbutton" type="submit">Login</button>
+        </form>
+    </section>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r134/three.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/vanta@latest/dist/vanta.waves.min.js"></script>
+
+    <script>
+        VANTA.WAVES({
+            el: "#body",
+            mouseControls: true,
+            touchControls: true,
+            gyroControls: false
+        })
+    </script>
+</body>
+
+</html>
