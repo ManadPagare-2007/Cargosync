@@ -1,0 +1,165 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="/static/perfomance.css">
+    <title>Driver Performance & Safety Profiles</title>
+    <!-- Font Awesome for Icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+
+
+</head>
+
+<body>
+
+    <!-- Sidebar Navigation -->
+    <div class="sidebar">
+        <div class="logo">
+            <i class="fa-solid fa-truck-fast"></i> FleetFlow
+        </div>
+        <div class="nav-links">
+            <a href="Dashboard.html"><i class="fa-solid fa-chart-line"></i> Dashboard</a>
+            <a href="registry.html"><i class="fa-solid fa-warehouse"></i> Vehicle Registry</a>
+            <a href="dispatcher.html"><i class="fa-solid fa-truck-ramp-box"></i> Trip Dispatcher</a>
+            <a href="maintenance.html"><i class="fa-solid fa-screwdriver-wrench"></i> Maintenance & Service Logs</a>
+            <a href="expense.html"><i class="fa-solid fa-file-invoice-dollar"></i> Completed Trip, Expense & Fuel
+                Logging</a>
+            <a href="perfomance.html" class="active"><i class="fa-solid fa-user-shield"></i> Driver Performance & Safety
+                Profiles</a>
+            <a href="finance.html"><i class="fa-solid fa-chart-pie"></i> Operational Analytics & Financial Reports</a>
+        </div>
+    </div>
+
+    <!-- Main Content Area -->
+    <div class="main-content">
+
+        <div class="header">
+            <h2>Driver Performance & Safety Profiles</h2>
+            <p>Human resource and compliance management.</p>
+        </div>
+
+        <!-- Compliance Logic Banner -->
+        <div class="compliance-banner">
+            <i class="fa-solid fa-triangle-exclamation"></i>
+            <strong>Compliance Logic:</strong> Drivers with expired licenses are <strong>blocked</strong> from trip
+            assignment.
+        </div>
+
+        <div class="dashboard-grid">
+
+            <!-- LEFT COLUMN: Add/Edit Driver Form -->
+            <div class="left-column">
+                <div class="card">
+                    <h3><i class="fa-solid fa-id-card"></i> Driver Registry</h3>
+                    <form method="post">
+                        <div class="form-group">
+                            <label>Full Name</label>
+                            <input type="text" class="form-control" name="driver_name" placeholder="John Doe">
+                        </div>
+
+                        <div class="form-group">
+                            <label>License Number</label>
+                            <input type="text" class="form-control" name="license_number" placeholder="DL-12345678">
+                        </div>
+
+                        <div class="form-group">
+                            <label>License Expiry Date</label>
+                            <input type="date" class="form-control" name="license_expiry">
+                        </div>
+
+                        <div class="form-group">
+                            <label>Current Status</label>
+                            <select class="form-control" name="current_status">
+                                <option value="On Duty">On Duty</option>
+                                <option value="Off Duty">Off Duty</option>
+                                <option value="Suspended">Suspended</option>
+                            </select>
+                        </div>
+
+                        <div class="form-group">
+                            <label>Assigned Vehicle</label>
+                            <select class="form-control" name="assigned_vehicle">
+                                <option value="TRK-001">TRK-001</option>
+                                <option value="VAN-042">VAN-042</option>
+                                <option value="Unassigned">Unassigned</option>
+                            </select>
+                        </div>
+
+                        <button type="submit" class="btn">Update Profile</button>
+                    </form>
+                </div>
+            </div>
+
+            <!-- RIGHT COLUMN: Driver Table -->
+            <div class="right-column">
+                <div class="card">
+                    <h3><i class="fa-solid fa-users"></i> Driver Performance & Status</h3>
+                    <div class="table-responsive">
+                        <table>
+                            <thead>
+                                <tr>
+                                    <th>Driver</th>
+                                    <th>Status</th>
+                                    <th>License Expiry</th>
+                                    <th>Safety Score</th>
+                                    <th>Trips Completed</th>
+                                    <th>Compliance</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                {% for row in data %}
+                                <tr>
+                                    <td>
+                                        <div class="driver-profile">
+                                            <div class="driver-avatar">{{ row.driver_name[:2] | upper if row.driver_name
+                                                else '?' }}</div>
+                                            <div>{{ row.driver_name }}</div>
+                                        </div>
+                                    </td>
+                                    <td>
+                                        <span
+                                            class="status-badge {% if row.current_status == 'On Duty' %}badge-onduty{% elif row.current_status == 'Off Duty' %}badge-offduty{% else %}badge-suspended{% endif %}">{{
+                                            row.current_status }}</span>
+                                    </td>
+                                    <td>{{ row.license_expiry }}</td>
+                                    <td><span class="score score-high">100/100</span></td>
+                                    <td>
+                                        0
+                                        <div class="progress-bar">
+                                            <div class="progress-fill" style="width: 0%"></div>
+                                        </div>
+                                    </td>
+                                    <td><span class="status-badge badge-onduty"
+                                            style="background:#eee; color:#27ae60;">Valid</span></td>
+                                </tr>
+                                {% else %}
+                                <tr>
+                                    <td colspan="6" style="text-align: center; padding: 20px;">No drivers registered
+                                        yet.</td>
+                                </tr>
+                                {% endfor %}
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+
+                <!-- Legend / Guide -->
+                <div class="card" style="padding: 15px; background-color: #f8f9fa;">
+                    <small>
+                        <strong>Status Guide:</strong>
+                        <span class="status-badge badge-onduty" style="margin-right:5px;">On Duty</span>
+                        <span class="status-badge badge-offduty" style="margin-right:5px;">Off Duty</span>
+                        <span class="status-badge badge-suspended">Suspended</span>
+                        <br>
+                        <strong>Safety Score:</strong> Based on harsh braking, speeding incidents, and trip reviews.
+                    </small>
+                </div>
+            </div>
+        </div>
+    </div>
+
+</body>
+
+</html>

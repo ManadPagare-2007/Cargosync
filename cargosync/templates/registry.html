@@ -1,0 +1,188 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Vehicle Registry - Asset Management</title>
+    <!-- Font Awesome for Icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <!-- External CSS -->
+    <link rel="stylesheet" href="/static/registry.css">
+</head>
+
+<body>
+
+    <!-- Sidebar Navigation -->
+    <div class="sidebar">
+        <div class="logo">
+            <i class="fa-solid fa-truck-fast"></i> FleetFlow
+        </div>
+        <div class="nav-links">
+            <a href="Dashboard.html"><i class="fa-solid fa-chart-line"></i> Dashboard</a>
+            <a href="registry.html" class="active"><i class="fa-solid fa-warehouse"></i> Vehicle Registry</a>
+            <a href="dispatcher.html"><i class="fa-solid fa-truck-ramp-box"></i> Trip Dispatcher</a>
+            <a href="maintenance.html"><i class="fa-solid fa-screwdriver-wrench"></i> Maintenance & Service Logs</a>
+            <a href="expense.html"><i class="fa-solid fa-file-invoice-dollar"></i> Completed Trip, Expense & Fuel
+                Logging</a>
+            <a href="perfomance.html"><i class="fa-solid fa-user-shield"></i> Driver Performance & Safety Profiles</a>
+            <a href="finance.html"><i class="fa-solid fa-chart-pie"></i> Operational Analytics & Financial Reports</a>
+        </div>
+    </div>
+
+    <!-- Main Content Area -->
+    <div class="main-content">
+
+        <div class="header">
+            <h2>Vehicle Registry (Asset Management)</h2>
+            <p>CRUD operations for physical assets. Manage fleet inventory and status.</p>
+        </div>
+
+        <!-- Stats Overview -->
+        <div class="stats-grid">
+            <div class="stat-card">
+                <h4>Total Fleet</h4>
+                <div class="value">24</div>
+            </div>
+            <div class="stat-card" style="border-left-color: var(--status-active-text);">
+                <h4>Active</h4>
+                <div class="value">20</div>
+            </div>
+            <div class="stat-card" style="border-left-color: var(--status-maintenance-text);">
+                <h4>In Maintenance</h4>
+                <div class="value">3</div>
+            </div>
+            <div class="stat-card" style="border-left-color: var(--status-retired-text);">
+                <h4>Retired</h4>
+                <div class="value">1</div>
+            </div>
+        </div>
+
+        <div class="dashboard-grid">
+
+            <!-- LEFT COLUMN: Add/Edit Vehicle Form -->
+            <div class="left-column">
+                <div class="card">
+                    <h3><i class="fa-solid fa-plus-circle"></i> Add New Vehicle</h3>
+                    <form method="post">
+                        <div class="form-group">
+                            <label>Vehicle Name / Model</label>
+                            <input type="text" class="form-control" placeholder="e.g., Ford Cargo X"
+                                name="vehicle_name">
+                        </div>
+
+                        <div class="form-group">
+                            <label>License Plate (Unique ID)</label>
+                            <input type="text" class="form-control" placeholder="e.g., ABC-1234" name="license_plate">
+                        </div>
+
+                        <div class="form-group">
+                            <label>Vehicle Type</label>
+                            <select class="form-control" name="vehicle_type">
+                                <option>Heavy Truck</option>
+                                <option>Delivery Van</option>
+                                <option>Bike/Courier</option>
+                            </select>
+                        </div>
+
+                        <div class="form-group">
+                            <label>Max Load Capacity</label>
+                            <div style="display: flex; gap: 10px;">
+                                <input type="number" class="form-control" placeholder="e.g., 1000"
+                                    name="max_load_capacity">
+                                <select class="form-control" style="width: 80px;" name="max_load_capacity_unit">
+                                    <option>kg</option>
+                                    <option>tons</option>
+                                </select>
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <label>Current Odometer (km)</label>
+                            <input type="number" class="form-control" placeholder="e.g., 45000" name="current_odometer">
+                        </div>
+
+                        <!-- Out of Service Toggle -->
+                        <div class="toggle-container">
+                            <span class="toggle-label">Out of Service (Retired)</span>
+                            <label class="switch">
+                                <input type="checkbox" name="out_of_service">
+                                <span class="slider"></span>
+                            </label>
+                        </div>
+
+                        <button type="submit" class="btn btn-primary" name="add_vehicle">
+                            <i class="fa-solid fa-save"></i> Add Vehicle
+                        </button>
+                    </form>
+                </div>
+            </div>
+
+            <!-- RIGHT COLUMN: Vehicle Registry Table -->
+            <div class="right-column">
+                <div class="card">
+                    <h3><i class="fa-solid fa-warehouse"></i> Fleet Registry</h3>
+                    <div class="table-responsive">
+                        <table>
+                            <thead>
+                                <tr>
+                                    <th>Vehicle</th>
+                                    <th>License Plate</th>
+                                    <th>Type</th>
+                                    <th>Max Load</th>
+                                    <th>Odometer</th>
+                                    <th>Status</th>
+                                    <th>Actions</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                {% for row in data %}
+                                <tr {% if row.out_of_service=='on' %}style="background-color: #fafafa; opacity: 0.7;" {%
+                                    endif %}>
+                                    <td>
+                                        <div class="vehicle-info">
+                                            <div class="vehicle-icon" {% if row.out_of_service=='on'
+                                                %}style="background: #eee; color: #999;" {% endif %}><i
+                                                    class="fa-solid {% if row.vehicle_type == 'Delivery Van' %}fa-van-shuttle{% elif row.vehicle_type == 'Bike/Courier' %}fa-bicycle{% else %}fa-truck{% endif %}"></i>
+                                            </div>
+                                            <div>
+                                                <strong>{{ row.vehicle_name }}</strong><br>
+                                                <small
+                                                    style="color: {% if row.out_of_service == 'on' %}#999{% else %}var(--text-light){% endif %};">{{
+                                                    row.vehicle_type }}</small>
+                                            </div>
+                                        </div>
+                                    </td>
+                                    <td>{{ row.license_plate }}</td>
+                                    <td>{{ row.vehicle_type }}</td>
+                                    <td>{{ row.max_load_capacity }} {{ row.max_load_capacity_unit }}</td>
+                                    <td>{{ row.current_odometer }} km</td>
+                                    <td>
+                                        {% if row.out_of_service == 'on' %}
+                                        <span class="status-badge badge-retired">Retired</span>
+                                        {% else %}
+                                        <span class="status-badge badge-active">Active</span>
+                                        {% endif %}
+                                    </td>
+                                    <td>
+                                        <button class="action-btn btn-edit"><i class="fa-solid fa-pen"></i></button>
+                                        <button class="action-btn btn-delete"><i class="fa-solid fa-trash"></i></button>
+                                    </td>
+                                </tr>
+                                {% else %}
+                                <tr>
+                                    <td colspan="7" style="text-align: center; padding: 20px;">No vehicles found. Add
+                                        one from the form.</td>
+                                </tr>
+                                {% endfor %}
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+</body>
+
+</html>

@@ -1,0 +1,155 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Trip Dispatcher & Management</title>
+    <link rel="stylesheet" href="/static/dispatcher.css">
+    <!-- Font Awesome for Icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+
+</head>
+
+<body>
+
+    <!-- Sidebar Navigation -->
+    <div class="sidebar">
+        <div class="logo">
+            <i class="fa-solid fa-truck-fast"></i> FleetFlow
+        </div>
+        <div class="nav-links">
+            <a href="Dashboard.html"><i class="fa-solid fa-chart-line"></i> Dashboard</a>
+            <a href="registry.html"><i class="fa-solid fa-warehouse"></i> Vehicle Registry</a>
+            <a href="dispatcher.html" class="active"><i class="fa-solid fa-truck-ramp-box"></i> Trip Dispatcher</a>
+            <a href="maintenance.html"><i class="fa-solid fa-screwdriver-wrench"></i> Maintenance & Service Logs</a>
+            <a href="expense.html"><i class="fa-solid fa-file-invoice-dollar"></i> Completed Trip, Expense & Fuel
+                Logging</a>
+            <a href="perfomance.html"><i class="fa-solid fa-user-shield"></i> Driver Performance & Safety Profiles</a>
+            <a href="finance.html"><i class="fa-solid fa-chart-pie"></i> Operational Analytics & Financial Reports</a>
+        </div>
+    </div>
+
+    <!-- Main Content Area -->
+    <div class="main-content">
+
+        <div class="header">
+            <h2>Trip Dispatcher & Management</h2>
+            <p>Workflow for moving goods from Point A to Point B.</p>
+        </div>
+
+        <div class="dashboard-grid">
+
+            <!-- LEFT COLUMN: Creation Form (Static Visual) -->
+            <div class="left-column">
+                <div class="card">
+                    <h3><i class="fa-solid fa-plus-circle"></i> Create New Trip</h3>
+                    <form method="post">
+
+                        <!-- Route Info -->
+                        <div class="form-group">
+                            <label>Origin (Point A)</label>
+                            <input type="text" class="form-control" name="origin" placeholder="e.g., Warehouse North">
+                        </div>
+                        <div class="form-group">
+                            <label>Destination (Point B)</label>
+                            <input type="text" class="form-control" name="destination" placeholder="e.g., Downtown Hub">
+                        </div>
+
+                        <!-- Cargo Info -->
+                        <div class="form-group">
+                            <label>Cargo Weight (kg)</label>
+                            <input type="number" class="form-control" name="cargo_weight" placeholder="Enter weight">
+                        </div>
+
+                        <div class="form-group">
+                            <label>Cargo Description</label>
+                            <input type="text" class="form-control" name="cargo_description"
+                                placeholder="e.g., Electronics, Fragile">
+                        </div>
+
+                        <!-- Assignment -->
+                        <div class="form-group">
+                            <label>Select Vehicle</label>
+                            <select class="form-control" name="vehicle_id">
+                                <option value="">-- Choose Vehicle --</option>
+                                <option value="TRK-001">TRK-001 (Max: 1000kg)</option>
+                                <option value="VAN-042">VAN-042 (Max: 500kg)</option>
+                                <option value="TRK-012">TRK-012 (Max: 2000kg)</option>
+                            </select>
+                        </div>
+
+                        <div class="form-group">
+                            <label>Select Driver</label>
+                            <select class="form-control" name="driver_name">
+                                <option value="">-- Choose Driver --</option>
+                                <option value="John Doe">John Doe</option>
+                                <option value="Sarah Smith">Sarah Smith</option>
+                                <option value="Mike Ross">Mike Ross</option>
+                            </select>
+                        </div>
+
+                        <button type="submit" class="btn"
+                            style="background: var(--accent-color); color: white; border: none; padding: 10px; border-radius: 5px; width: 100%; font-weight: bold; cursor: pointer;">
+                            Create Trip
+                        </button>
+                    </form>
+                </div>
+            </div>
+
+            <!-- RIGHT COLUMN: Lifecycle / Table (Static Visual) -->
+            <div class="right-column">
+                <div class="card">
+                    <h3><i class="fa-solid fa-list"></i> Trip Registry & Lifecycle</h3>
+                    <div class="table-responsive">
+                        <table>
+                            <thead>
+                                <tr>
+                                    <th>ID</th>
+                                    <th>Route</th>
+                                    <th>Vehicle</th>
+                                    <th>Driver</th>
+                                    <th>Cargo</th>
+                                    <th>Status</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                {% for row in data %}
+                                <tr>
+                                    <td>TRP-{{ row.id }}</td>
+                                    <td>{{ row.origin }} -&gt; {{ row.destination }}</td>
+                                    <td>{{ row.vehicle_id }}</td>
+                                    <td>{{ row.driver_name }}</td>
+                                    <td>{{ row.cargo_weight }}kg</td>
+                                    <td><span class="status-badge badge-draft">Draft</span></td>
+                                </tr>
+                                {% else %}
+                                <tr>
+                                    <td colspan="6" style="text-align: center; padding: 20px;">No trips scheduled.</td>
+                                </tr>
+                                {% endfor %}
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+
+                <!-- Lifecycle Explanation -->
+                <div class="card">
+                    <div class="lifecycle-box">
+                        <h4><i class="fa-solid fa-circle-nodes"></i> Trip Lifecycle Workflow</h4>
+                        <p>
+                            <strong>1. Draft:</strong> Trip is created but vehicle/driver not assigned.<br>
+                            <strong>2. Dispatched:</strong> Vehicle & Driver assigned, goods in transit.<br>
+                            <strong>3. Completed:</strong> Goods delivered successfully.<br>
+                            <strong>4. Cancelled:</strong> Trip aborted (Validation: CargoWeight must not exceed
+                            MaxCapacity).
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+</body>
+
+</html>

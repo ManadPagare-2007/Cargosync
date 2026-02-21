@@ -1,0 +1,222 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Operational Analytics & Financial Reports</title>
+    <link rel="stylesheet" href="/static/finance.css">
+    <!-- Font Awesome for Icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    
+</head>
+<body>
+
+    <!-- Sidebar Navigation -->
+    <div class="sidebar">
+        <div class="logo">
+            <i class="fa-solid fa-truck-fast"></i> FleetFlow
+        </div>
+        <div class="nav-links">
+            <a href="Dashboard.html"><i class="fa-solid fa-chart-line"></i> Dashboard</a>
+            <a href="registry.html"><i class="fa-solid fa-warehouse"></i> Vehicle Registry</a>
+            <a href="dispatcher.html"><i class="fa-solid fa-truck-ramp-box"></i> Trip Dispatcher</a>
+            <a href="maintenance.html"><i class="fa-solid fa-screwdriver-wrench"></i> Maintenance & Service Logs</a>
+            <a href="expense.html"><i class="fa-solid fa-file-invoice-dollar"></i> Completed Trip, Expense & Fuel Logging</a>
+            <a href="perfomance.html"><i class="fa-solid fa-user-shield"></i> Driver Performance & Safety Profiles</a>
+            <a href="finance.html" class="active"><i class="fa-solid fa-chart-pie"></i> Operational Analytics & Financial Reports</a>
+        </div>
+    </div>
+
+    <!-- Main Content Area -->
+    <div class="main-content">
+        
+        <div class="header">
+            <div>
+                <h2>Operational Analytics & Financial Reports</h2>
+                <p>Data-driven decision making and financial performance tracking.</p>
+            </div>
+            <div class="export-buttons">
+                <button class="btn-export btn-csv">
+                    <i class="fa-solid fa-file-csv"></i> Export CSV
+                </button>
+                <button class="btn-export btn-pdf">
+                    <i class="fa-solid fa-file-pdf"></i> Export PDF
+                </button>
+            </div>
+        </div>
+
+        <!-- Formula Reference -->
+        <div class="formula-box">
+            <strong>Key Formulas:</strong><br>
+            Fuel Efficiency = Total Kilometers / Total Liters Consumed<br>
+            Vehicle ROI = (Revenue - (Maintenance Cost + Fuel Cost)) / Acquisition Cost
+        </div>
+
+        <!-- Top KPI Cards -->
+        <div class="kpi-grid">
+            <div class="kpi-card">
+                <h4>Total Fleet Revenue</h4>
+                <div class="value">$245,000</div>
+                <div class="subtext">This Month</div>
+            </div>
+            <div class="kpi-card">
+                <h4>Total Operational Cost</h4>
+                <div class="value">$89,500</div>
+                <div class="subtext">Fuel + Maintenance</div>
+            </div>
+            <div class="kpi-card">
+                <h4>Avg Fuel Efficiency</h4>
+                <div class="value">8.5 km/L</div>
+                <div class="subtext">Fleet Average</div>
+            </div>
+            <div class="kpi-card roi-positive">
+                <h4>Net Profit Margin</h4>
+                <div class="value">63.5%</div>
+                <div class="subtext">Revenue - Costs</div>
+            </div>
+        </div>
+
+        <!-- Charts Section -->
+        <div class="dashboard-grid">
+            
+            <!-- Fuel Efficiency Chart -->
+            <div class="card">
+                <h3><i class="fa-solid fa-gas-pump"></i> Fuel Efficiency by Vehicle (km/L)</h3>
+                <div class="chart-placeholder">
+                    <i class="fa-solid fa-chart-line"></i>
+                    <p>Visual Chart: Bar graph comparing km/L per vehicle</p>
+                    <div style="margin-top: 20px; text-align: left;">
+                        <div style="margin-bottom: 10px;">
+                            <span style="font-size: 0.85rem;">TRK-001:</span>
+                            <div style="background: #27ae60; height: 20px; width: 75%; border-radius: 4px;"></div>
+                        </div>
+                        <div style="margin-bottom: 10px;">
+                            <span style="font-size: 0.85rem;">VAN-042:</span>
+                            <div style="background: #3498db; height: 20px; width: 90%; border-radius: 4px;"></div>
+                        </div>
+                        <div style="margin-bottom: 10px;">
+                            <span style="font-size: 0.85rem;">TRK-012:</span>
+                            <div style="background: #e67e22; height: 20px; width: 65%; border-radius: 4px;"></div>
+                        </div>
+                        <div style="margin-bottom: 10px;">
+                            <span style="font-size: 0.85rem;">BIKE-09:</span>
+                            <div style="background: #9b59b6; height: 20px; width: 95%; border-radius: 4px;"></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- ROI Analysis -->
+            <div class="card">
+                <h3><i class="fa-solid fa-coins"></i> Vehicle ROI Analysis</h3>
+                <div class="table-responsive">
+                    <table>
+                        <thead>
+                            <tr>
+                                <th>Vehicle</th>
+                                <th>Revenue</th>
+                                <th>Costs</th>
+                                <th>ROI %</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td>TRK-001</td>
+                                <td>$45,000</td>
+                                <td>$12,500</td>
+                                <td><span class="status-badge badge-roi-pos">+260%</span></td>
+                            </tr>
+                            <tr>
+                                <td>VAN-042</td>
+                                <td>$28,000</td>
+                                <td>$8,200</td>
+                                <td><span class="status-badge badge-roi-pos">+241%</span></td>
+                            </tr>
+                            <tr>
+                                <td>TRK-012</td>
+                                <td>$52,000</td>
+                                <td>$35,000</td>
+                                <td><span class="status-badge badge-roi-neg">-15%</span></td>
+                            </tr>
+                            <tr>
+                                <td>BIKE-09</td>
+                                <td>$12,000</td>
+                                <td>$1,500</td>
+                                <td><span class="status-badge badge-roi-pos">+700%</span></td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+
+        </div>
+
+        <!-- Financial Reports Table -->
+        <div class="card">
+            <h3><i class="fa-solid fa-table-list"></i> Monthly Financial Breakdown</h3>
+            <div class="table-responsive">
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Month</th>
+                            <th>Total Revenue</th>
+                            <th>Fuel Cost</th>
+                            <th>Maintenance Cost</th>
+                            <th>Net Profit</th>
+                            <th>Fleet Utilization</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>October 2023</td>
+                            <td>$245,000</td>
+                            <td>$32,000</td>
+                            <td>$12,500</td>
+                            <td style="font-weight: bold; color: var(--roi-positive-text);">$200,500</td>
+                            <td>85%</td>
+                        </tr>
+                        <tr>
+                            <td>September 2023</td>
+                            <td>$228,000</td>
+                            <td>$29,500</td>
+                            <td>$15,000</td>
+                            <td style="font-weight: bold; color: var(--roi-positive-text);">$183,500</td>
+                            <td>82%</td>
+                        </tr>
+                        <tr>
+                            <td>August 2023</td>
+                            <td>$215,000</td>
+                            <td>$28,000</td>
+                            <td>$10,000</td>
+                            <td style="font-weight: bold; color: var(--roi-positive-text);">$177,000</td>
+                            <td>78%</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+
+        <!-- Generate Reports Section -->
+        <div class="card" style="background: linear-gradient(135deg, #8e44ad 0%, #9b59b6 100%); color: white;">
+            <div style="display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 20px;">
+                <div>
+                    <h3 style="color: white; border-bottom-color: rgba(255,255,255,0.3);">Generate Reports</h3>
+                    <p style="color: rgba(255,255,255,0.9); margin-top: 10px;">
+                        One-click export for monthly payroll, health audits, and financial summaries.
+                    </p>
+                </div>
+                <div style="display: flex; gap: 10px; flex-wrap: wrap;">
+                    <button class="btn-generate">
+                        <i class="fa-solid fa-users"></i> Payroll CSV
+                    </button>
+                    <button class="btn-generate">
+                        <i class="fa-solid fa-heart-pulse"></i> Health Audit PDF
+                    </button>
+                </div>
+            </div>
+        </div>
+
+    </div>
+
+</body>
+</html>
